@@ -1,4 +1,7 @@
-# B1-1 R01 — Evidence Guide
+# B4-1 R01 — Evidence Guide
+
+> 현재 Mission ID: **B4-1** / 이전 ID: **B1-1**  
+> `b1-1-mission.*` Source 파일명은 역사적 식별자로 보존합니다.
 
 Evidence는 단순 스크린샷 모음이 아니라 공식 평가항목을 증명하는 자료입니다.
 
@@ -10,6 +13,12 @@ Evidence는 단순 스크린샷 모음이 아니라 공식 평가항목을 증�
 
 ## 권장 Evidence 묶음
 
+0. `00-mac-v-runtime-preflight.md`
+   - MAC-V Runtime Profile
+   - Canonical Repository / current Mission ID
+   - Ubuntu / systemd / architecture
+   - read-only Preflight `FAIL=0`
+   - **Mission CLEAR Evidence가 아니라 Runtime 진입 Evidence**
 1. `01-ssh.txt` 또는 캡처
    - effective SSH port 20022
    - `PermitRootLogin no`
@@ -63,4 +72,4 @@ Secret 파일은 `test -f`, `stat`, 권한 확인 등 **존재와 메타데이�
 
 ## CLEAR 조건
 
-필수 Evidence가 실제 결과로 채워지고 공식 Evaluation을 재확인한 뒤에만 B1-1을 `✅ CLEAR`로 판정합니다.
+필수 Evidence가 실제 결과로 채워지고 공식 Evaluation을 재확인한 뒤에만 B4-1을 `✅ CLEAR`로 판정합니다.
