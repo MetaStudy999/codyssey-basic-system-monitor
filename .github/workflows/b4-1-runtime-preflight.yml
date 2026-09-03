@@ -1,0 +1,76 @@
+name: B4-1 runtime preflight
+
+on:
+  pull_request:
+    paths:
+      - 'training/round-01-clear/**'
+      - 'README.md'
+      - 'WORKING-RULES.md'
+      - 'MISSION-METADATA.yml'
+      - '.github/workflows/b4-1-runtime-preflight.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'training/round-01-clear/**'
+      - 'README.md'
+      - 'WORKING-RULES.md'
+      - 'MISSION-METADATA.yml'
+      - '.github/workflows/b4-1-runtime-preflight.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify current mission metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fx 'current_mission_id: B4-1' MISSION-METADATA.yml
+          grep -Fx 'repository: MetaStudy999/codyssey-basic-system-monitor' MISSION-METADATA.yml
+          echo '[PASS] B4-1 metadata'
+
+      - name: Reject stale numbered repository paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RIn \
+            'codyssey-basic-b1-1-system-monitor' \
+            training/round-01-clear README.md WORKING-RULES.md; then
+            echo '[FAIL] stale numbered system-monitor repository path found' >&2
+            exit 1
+          fi
+          echo '[PASS] no stale numbered repository path'
+
+      - name: Verify current entry markers
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -F '# Codyssey Basic B4-1 — System Monitor' README.md
+          grep -F '# B4-1 훈련 차수(Round) 01 — 입문자 가이드(Beginner Guide)' \
+            training/round-01-clear/BEGINNER-GUIDE.md
+          grep -F 'Repository : $HOME/codyssey/codyssey-basic-system-monitor' \
+            training/round-01-clear/BEGINNER-GUIDE.md
+          echo '[PASS] B4-1 entry markers'
+
+      - name: Check shell syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -d '' scripts < <(find training/round-01-clear -type f -name '*.sh' -print0)
+          if ((${#scripts[@]} == 0)); then
+            echo '[FAIL] no shell scripts found' >&2
+            exit 1
+          fi
+          for script in "${scripts[@]}"; do
+            echo "bash -n $script"
+            bash -n "$script"
+          done
+          echo "[PASS] shell syntax: ${#scripts[@]} scripts"
