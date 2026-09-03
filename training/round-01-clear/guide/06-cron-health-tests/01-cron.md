@@ -98,7 +98,7 @@ R01 구현 선택
 Host       : OrbStack Ubuntu 24.04 또는 WSL2 Ubuntu 24.04
 Terminal A : STEP 07부터 유지 중인 Agent foreground Terminal
 Terminal B : Ubuntu Bash — cron 점검·등록·검증
-Repository : $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+Repository : $HOME/codyssey/codyssey-basic-system-monitor
 권한       : 일반 사용자 + crontab/service 조회·변경 줄에서만 sudo
 venv       : 해당 없음
 ```
@@ -106,7 +106,7 @@ venv       : 해당 없음
 ### A. STEP 09 이후 Runtime Gate 재확인 — 읽기 전용
 
 ```bash
-cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"
+cd "$HOME/codyssey/codyssey-basic-system-monitor"
 pwd
 git branch --show-current
 git status --short

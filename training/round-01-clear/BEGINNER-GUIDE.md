@@ -1,6 +1,8 @@
-# B1-1 훈련 차수(Round) 01 — 입문자 가이드(Beginner Guide)
+# B4-1 훈련 차수(Round) 01 — 입문자 가이드(Beginner Guide)
 
-이 문서는 B1-1을 처음 수행하는 입문자가 공식 미션(Mission)/평가(Evaluation)를 기준으로 처음부터 끝까지 재현하기 위한 중심 가이드입니다.
+이 문서는 현재 **B4-1 시스템 관제**를 처음 수행하는 입문자가 공식 미션(Mission)/평가(Evaluation)를 기준으로 처음부터 끝까지 재현하기 위한 중심 가이드입니다.
+
+> 이 미션은 번호 변경 전 **B1-1**이었습니다. 현재 Mission ID는 **B4-1**, Canonical Repository는 `MetaStudy999/codyssey-basic-system-monitor`입니다. `b1-1-mission.*` 파일명은 과거 공식 Source 식별자로 보존합니다.
 
 > 현재 훈련 차수는 **R01 — CLEAR**이며, Control Tower의 현재 운영 기준은 **Phase C — 빠른 실행 방식(FAST EXECUTE) / 실제 실행(Runtime)**입니다. Phase A/B의 기준 구현(Reference Build)·설계 준비는 완료된 상태로 보고, 지금은 Ubuntu 실제 실행(Runtime) → 검증(Verification) → 증빙 자료(Evidence) → 완료(CLEAR)를 우선합니다. 실제 실행하지 않은 항목은 PASS/CLEAR로 기록하지 않습니다.
 
@@ -9,10 +11,10 @@
 <a id="quick-start"></a>
 ## 🚀 빠른 시작(Quick Start)
 
-> **공통 개발환경이 이미 준비되어 있고 B1-1 저장소를 받은 학습자**가 안전하게 현재 상태를 다시 확인하는 경로입니다.
+> **공통 개발환경이 이미 준비되어 있고 B4-1 저장소를 받은 학습자**가 안전하게 현재 상태를 다시 확인하는 경로입니다.
 > 처음 개발환경을 준비하는 경우에는 Control Tower의 `environments/START-HERE-DEVELOPMENT-ENVIRONMENT.md`를 먼저 완료한 뒤 돌아오세요.
 
-### B1-1 진입 전 공통 환경 판정(Gate)
+### B4-1 진입 전 공통 환경 판정(Gate)
 
 빠른 시작(Quick Start)을 실행하기 전에 Control Tower에서 다음 순서를 먼저 닫습니다.
 
@@ -20,7 +22,7 @@
 1. Git/GitHub 사용자 준비 상태(User Identity Readiness) 재확인
 2. 공통 환경 마무리(Common Environment Closeout) 판정
 3. 공통 환경 동결(Common Environment Freeze) 확인
-4. 그 다음 B1-1 빠른 시작(Quick Start) → STEP 01
+4. 그 다음 B4-1 빠른 시작(Quick Start) → STEP 01
 ```
 
 현재 운영 상태와 최종 판정은 Control Tower의 `training/round-01-clear/NEXT-ACTIONS.md`와 `environments/ubuntu/ENVIRONMENT-CLOSEOUT.md`를 기준으로 합니다.
@@ -39,7 +41,7 @@ bash environments/ubuntu/verify-user-identity.sh
 ```text
 Host       : MAC-V OrbStack Ubuntu 24.04 또는 WIN-V WSL2 Ubuntu 24.04
 Terminal   : Ubuntu Bash
-Repository : $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+Repository : $HOME/codyssey/codyssey-basic-system-monitor
 권한       : 일반 사용자
 venv       : 해당 없음
 ```
@@ -47,10 +49,12 @@ venv       : 해당 없음
 ### 빠른 상태 확인
 
 ```bash
-cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"
+cd "$HOME/codyssey/codyssey-basic-system-monitor"
 pwd
+git remote -v
 git branch --show-current
 git status --short
+cat MISSION-METADATA.yml
 cat /etc/os-release
 uname -m
 ps -p 1 -o comm=
@@ -61,27 +65,33 @@ bash -n training/round-01-clear/monitor.sh
 
 ```text
 1. cd ...
-   → B1-1 저장소 루트(Repository Root)로 이동합니다.
+   → 현재 B4-1 Canonical Repository Root로 이동합니다.
 
 2. pwd
-   → 실제 작업 위치가 Ubuntu의 B1-1 Repository인지 확인합니다.
+   → 실제 작업 위치가 Ubuntu의 codyssey-basic-system-monitor인지 확인합니다.
 
-3. git branch --show-current
+3. git remote -v
+   → origin이 현재 Canonical Repository를 가리키는지 확인합니다.
+
+4. git branch --show-current
    → 현재 작업 브랜치(Branch)를 확인합니다.
 
-4. git status --short
+5. git status --short
    → 예상하지 않은 로컬 변경이 있는지 확인합니다.
 
-5. cat /etc/os-release
+6. cat MISSION-METADATA.yml
+   → current_mission_id=B4-1과 Repository 연결을 확인합니다.
+
+7. cat /etc/os-release
    → Ubuntu 배포판과 버전을 확인합니다.
 
-6. uname -m
+8. uname -m
    → 제공 Agent 실행 파일 선택에 필요한 CPU 아키텍처(Architecture)를 확인합니다.
 
-7. ps -p 1 -o comm=
+9. ps -p 1 -o comm=
    → PID 1을 확인하여 systemd 기반 실행 환경(Runtime)인지 판단합니다.
 
-8. bash -n .../monitor.sh
+10. bash -n .../monitor.sh
    → monitor.sh를 실행하지 않고 Bash 문법만 검사합니다.
 ```
 
@@ -89,7 +99,9 @@ bash -n training/round-01-clear/monitor.sh
 
 ```text
 [ ] Control Tower에서 공통 환경 동결(Common Environment Freeze)이 확인되었다.
-[ ] pwd가 /home/<user>/codyssey/codyssey-basic-b1-1-system-monitor 계열이다.
+[ ] pwd가 /home/<user>/codyssey/codyssey-basic-system-monitor 계열이다.
+[ ] origin이 MetaStudy999/codyssey-basic-system-monitor를 가리킨다.
+[ ] MISSION-METADATA.yml의 current_mission_id가 B4-1이다.
 [ ] 현재 Branch와 변경사항을 이해하고 있다.
 [ ] Ubuntu 24.04 실행 환경(Runtime)이다.
 [ ] CPU 아키텍처(Architecture)를 확인했다.
@@ -109,8 +121,8 @@ bash -n training/round-01-clear/monitor.sh
 재실행 안전성:
 
 ```text
-cd / pwd / branch / git status / OS·Architecture·systemd 확인 → 🟢 SAFE TO RERUN
-bash -n monitor.sh                                      → 🟢 SAFE TO RERUN
+cd / pwd / remote / branch / git status / Metadata / OS·Architecture·systemd 확인 → 🟢 SAFE TO RERUN
+bash -n monitor.sh                                                     → 🟢 SAFE TO RERUN
 ```
 
 > 빠른 시작(Quick Start)에서는 SSH, UFW, 사용자, ACL, Agent, cron 설정을 자동 변경하지 않습니다. 시스템 변경은 반드시 해당 상세 STEP의 Checkpoint와 STOP/GO 기준을 따라 수행합니다.
@@ -120,7 +132,7 @@ bash -n monitor.sh                                      → 🟢 SAFE TO RERUN
 <a id="module-map"></a>
 ## 📚 학습 모듈 지도(Module Map)
 
-B1-1의 상세 따라하기는 **전체 중앙 허브(Hub) → 모듈별 지역 목차(Local Table of Contents, Local TOC) → 세부 학습 문서(Learning Unit)**의 3계층 정보 구조(Information Architecture, IA)로 관리합니다. `BEGINNER-GUIDE.md`는 빠른 시작(Quick Start)과 전체 모듈 이동을 담당하고, 각 `guide/<module>/README.md`는 연관 개념과 STEP을 분류한 모듈 목차를 담당합니다.
+B4-1의 상세 따라하기는 **전체 중앙 허브(Hub) → 모듈별 지역 목차(Local Table of Contents, Local TOC) → 세부 학습 문서(Learning Unit)**의 3계층 정보 구조(Information Architecture, IA)로 관리합니다. `BEGINNER-GUIDE.md`는 빠른 시작(Quick Start)과 전체 모듈 이동을 담당하고, 각 `guide/<module>/README.md`는 연관 개념과 STEP을 분류한 모듈 목차를 담당합니다.
 
 > 문서 구조를 나눈 것만으로 실제 실행(Runtime), 검증(Verification), 증빙 자료(Evidence), 완료(CLEAR) 상태가 바뀌지는 않습니다.
 
@@ -164,7 +176,7 @@ B1-1의 상세 따라하기는 **전체 중앙 허브(Hub) → 모듈별 지역 
 - [requirements-mapping.md](docs/requirements-mapping.md) — 요구사항→구현→검증→증빙 연결
 - [evaluation-qa.md](docs/evaluation-qa.md) — 평가 질의응답 학습
 - [Evidence Guide](evidence/README.md) — 실제 증빙 수집 기준
-- [Environment](environment/README.md) — B1-1 실행 환경
+- [Environment](environment/README.md) — B4-1 실행 환경
 
 ## 문서 분할 무결성 원칙
 

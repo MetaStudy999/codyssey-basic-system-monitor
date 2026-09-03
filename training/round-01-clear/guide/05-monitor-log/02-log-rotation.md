@@ -117,7 +117,7 @@ monitor.log.1~.9 9개
 Host       : OrbStack Ubuntu 24.04 또는 WSL2 Ubuntu 24.04
 Terminal A : STEP 07부터 유지 중인 Agent foreground Terminal
 Terminal B : Ubuntu Bash — 격리 로그 회전 시험
-Repository : $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+Repository : $HOME/codyssey/codyssey-basic-system-monitor
 권한       : 일반 사용자 + 필요한 조회/소유권 변경 줄에서만 sudo
 venv       : 해당 없음
 ```
@@ -125,7 +125,7 @@ venv       : 해당 없음
 ### A. STEP 08 정상 경로와 설치본 재확인 — 읽기 전용
 
 ```bash
-cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"
+cd "$HOME/codyssey/codyssey-basic-system-monitor"
 
 AGENT_COUNT="$(pgrep -x agent-app | wc -l)"
 printf '[INFO] agent-app count=%s\n' "$AGENT_COUNT"

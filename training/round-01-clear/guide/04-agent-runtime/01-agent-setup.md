@@ -94,7 +94,7 @@ STEP 07 Agent Boot
 ```text
 Host       : OrbStack Ubuntu 24.04 또는 WSL2 Ubuntu 24.04
 Terminal   : Ubuntu Bash
-Repository : $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+Repository : $HOME/codyssey/codyssey-basic-system-monitor
 권한       : 일반 사용자 + 필요한 줄에서만 sudo
 venv       : 해당 없음
 ```

@@ -1,14 +1,20 @@
-# B1-1 Round 01 — Mission Clear Checklist
+# B4-1 Round 01 — Mission Clear Checklist
 
-> 상태는 `⬜ NOT STARTED`, `🟡 ACTIVE`, `⛔ BLOCKED`, `✅ CLEAR`만 사용합니다. **Reference Build가 완료되어도 실제 Runtime/Evidence 전에는 CLEAR가 아닙니다.**
+> 현재 Mission ID는 **B4-1**이며 이전 ID는 **B1-1**입니다. `b1-1-mission.*` Source 파일명은 역사적 식별자로 보존합니다.
+
+> 상태는 `⬜ NOT STARTED`, `🟡 ACTIVE`, `⏸ PAUSED`, `⛔ BLOCKED`, `✅ CLEAR`만 사용합니다. **Reference Build가 완료되어도 실제 Runtime/Evidence 전에는 CLEAR가 아닙니다.**
 
 ## 현재 상태
 
 - Training Round: **R01 — CLEAR**
-- Mission: **B1-1**
-- Runtime 상태: **🟡 ACTIVE**
+- Mission: **B4-1 — 시스템 관제**
+- Previous Mission ID: **B1-1**
+- Canonical Repository: **`MetaStudy999/codyssey-basic-system-monitor`**
+- Workcell 상태: **🟡 ACTIVE**
+- Runtime 상태: **Current Runtime Context 선택 전**
 - Phase A Reference 판정: **CORE READY**
 - Golden Path: **Ubuntu 22.04 LTS 또는 동등 Linux + systemd + UFW + Bash**
+- R01 권장 Runtime: **Ubuntu 24.04**
 - `AGENT_HOME`: **`/opt/agent-app`**
 
 ## A. Source / Reference Build
@@ -102,6 +108,10 @@
 
 ### C1. Baseline
 
+- [ ] Current Runtime Context = MAC-V 또는 WIN-V 명시
+- [ ] Repository path = `$HOME/codyssey/codyssey-basic-system-monitor`
+- [ ] origin = `MetaStudy999/codyssey-basic-system-monitor`
+- [ ] `MISSION-METADATA.yml` current_mission_id = B4-1
 - [ ] OS / Version
 - [ ] CPU Architecture
 - [ ] WSL/VM/일반 Linux
@@ -190,6 +200,7 @@
 
 - [x] Evidence 수집 계획 준비
 - [x] Requirement mapping 준비
+- [ ] Runtime Profile / Repository / Commit Evidence
 - [ ] SSH effective config / LISTEN / 새 접속 Evidence
 - [ ] UFW 전체 정책 Evidence
 - [ ] 계정/그룹/effective permission Evidence
@@ -211,6 +222,6 @@
 - [ ] 실제 Evidence 완료
 - [ ] Secret 노출 없음
 - [ ] 설명형 평가 대응 가능
-- [ ] **✅ B1-1 MISSION CLEAR**
+- [ ] **✅ B4-1 MISSION CLEAR**
 
-**운영 규칙:** B1-1이 `✅ CLEAR`가 되기 전에는 B1-2 Runtime을 시작하지 않습니다. Phase A Reference Build는 후속 미션까지 선제 준비할 수 있습니다.
+**운영 규칙:** B4-1을 현재 FAST TRACK 첫 Workcell로 수행합니다. B4-1 CLEAR 후 B4-2로 진행하는 것이 R01 권장 실행 순서이지만, Control Tower Dependency Map에서 B4-1 → B4-2는 공식 Hard Prerequisite가 아니라 **권장 선행**입니다. 실제 상태와 공식 요구를 기준으로 전환합니다.
