@@ -38,6 +38,39 @@ echo '===== listeners ====='
 sudo ss -lntp | grep -E ':(22|20022)\b' || true
 ```
 
+### 1-1. `Missing privilege separation directory: /run/sshd`가 나오면
+
+OrbStack/LXC처럼 `ssh.socket`은 이미 active이지만 아직 `ssh.service`가 실제로 기동되지 않은 환경에서는 수동 `sshd -t` 또는 `sshd -T` 검증 시 `/run/sshd`가 아직 만들어지지 않아 다음 메시지가 나올 수 있습니다.
+
+```text
+Missing privilege separation directory: /run/sshd
+```
+
+이 경우 SSH 설정을 쓰거나 socket을 재시작하기 전에 **runtime directory만 최소 복구**합니다. `/run` 아래의 이 디렉터리는 영구 SSH 설정이 아니라 sshd의 privilege separation에 필요한 실행 시점 디렉터리입니다.
+
+```bash
+if [ ! -d /run/sshd ]; then
+    sudo install -d -o root -g root -m 0755 /run/sshd
+fi
+
+sudo stat -c 'path=%n owner=%U group=%G mode=%a' /run/sshd
+sudo sshd -t
+sudo sshd -T | grep -E '^(port|permitrootlogin) '
+```
+
+정상 기준:
+
+```text
+path=/run/sshd owner=root group=root mode=755
+sshd -t = 출력 없음 / exit 0
+port <현재값>
+permitrootlogin <현재값>
+```
+
+`/run/sshd`는 비어 있고 root 소유이며 group/world writable이 아니어야 합니다. 이 복구만으로 SSH 20022 전환이나 UFW 설정을 수행한 것으로 보지 않습니다.
+
+> `sshd -t` 또는 `sshd -T`가 이 단계에서도 실패하면 SSH 설정 파일을 쓰지 않습니다. 오류를 먼저 해결합니다.
+
 ## 2. 판정
 
 ### A. `ssh.socket` active
@@ -87,6 +120,7 @@ ssh.service reload/restart
 - [ ] `ssh.socket` active/inactive 판정
 - [ ] `ssh.service` 상태 확인
 - [ ] TCP 22 listener owner/process 확인
+- [ ] `/run/sshd`가 필요한 경우 안전하게 준비
 - [ ] 현재 effective `port` / `permitrootlogin` 확인
 - [ ] 이후 적용 경로를 socket-activation-aware 또는 service 방식으로 결정
 
