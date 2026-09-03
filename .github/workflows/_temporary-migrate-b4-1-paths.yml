@@ -1,0 +1,46 @@
+name: temporary migrate B4-1 paths
+
+on:
+  push:
+    branches:
+      - chore/current-b4-1-runtime-entry
+    paths:
+      - '.github/workflows/_temporary-migrate-b4-1-paths.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: chore/current-b4-1-runtime-entry
+          fetch-depth: 0
+
+      - name: Replace legacy numbered runtime repository path
+        shell: bash
+        run: |
+          set -euo pipefail
+          old='codyssey-basic-b1-1-system-monitor'
+          new='codyssey-basic-system-monitor'
+          mapfile -t files < <(grep -RIl --exclude-dir=.git "$old" training/round-01-clear || true)
+          printf 'files_to_update=%s\n' "${#files[@]}"
+          if ((${#files[@]} == 0)); then
+            echo '[PASS] no legacy runtime repository path remains'
+            exit 0
+          fi
+          for file in "${files[@]}"; do
+            echo "migrate: $file"
+            sed -i "s/${old}/${new}/g" "$file"
+          done
+          if grep -RIn --exclude-dir=.git "$old" training/round-01-clear; then
+            echo '[FAIL] legacy path remains' >&2
+            exit 1
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add training/round-01-clear
+          git commit -m 'docs: migrate B4-1 runtime paths to stable repository name'
+          git push origin HEAD:chore/current-b4-1-runtime-entry
