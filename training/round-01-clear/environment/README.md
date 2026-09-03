@@ -1,30 +1,29 @@
-# B1-1 R01 Environment
+# B4-1 R01 Environment
 
 ## 역할
 
-B1-1의 환경설정을 **재현 가능하고 검증 가능하게** 관리합니다.
+B4-1 시스템 관제의 환경설정을 **재현 가능하고 검증 가능하게** 관리합니다. 이 미션은 이전 ID B1-1에서 현재 B4-1로 재매핑되었습니다.
 
 Round 01의 주 학습 경로는 `BEGINNER-GUIDE.md`에서 사용자가 주요 명령을 직접 실행하는 방식입니다. 이 폴더의 스크립트는 재현·복구를 위한 보조수단입니다.
 
 ## 현재 실제 Runtime 환경
 
 ```text
-macOS Host
-└─ OrbStack
-   └─ Ubuntu 24.04 Linux Machine
-      └─ B1-1 Runtime
+Supported Runtime
+├─ MAC-V: macOS Host → OrbStack → Ubuntu 24.04
+└─ WIN-V: Windows 11 Pro → WSL2 → Ubuntu 24.04
 ```
 
-현재 Phase C에서는 **OrbStack Ubuntu 24.04 내부를 B1-1 실습 대상 Linux**로 사용합니다.
+실제 작업을 시작할 때 사용자가 선택한 환경을 Current Runtime Context로 사용합니다. 이전 실행 경험만으로 현재 플랫폼을 추정해 PASS 처리하지 않습니다.
 
-- macOS Host: OrbStack 및 Ubuntu machine 실행·접속
-- OrbStack Ubuntu 24.04: Linux 시스템 설정, Agent, monitor, cron, verify 수행
+- Host: Runtime 실행·접속 계층
+- Ubuntu 24.04: Linux 시스템 설정, Agent, monitor, cron, verify 수행
 
-상세 규칙: `ORBSTACK-UBUNTU-24.04.md`
+MAC-V 상세 규칙: `ORBSTACK-UBUNTU-24.04.md`
 
 ## Ubuntu 24.04 Package
 
-B1-1에서 Common Base 외에 추가로 필요한 Ubuntu APT 패키지는 `ubuntu-packages.txt`에서 관리합니다.
+B4-1에서 Common Base 외에 추가로 필요한 Ubuntu APT 패키지는 `ubuntu-packages.txt`에서 관리합니다.
 
 현재 목록:
 
@@ -38,7 +37,7 @@ iproute2
 util-linux
 ```
 
-다음 공통 개발도구는 Control Tower의 `environments/ubuntu/`에서 관리하므로 B1-1 목록에 중복하지 않습니다.
+다음 공통 개발도구는 Control Tower의 `environments/ubuntu/`에서 관리하므로 B4-1 목록에 중복하지 않습니다.
 
 ```text
 ca-certificates
@@ -57,16 +56,16 @@ bash-completion
 gh — GitHub CLI 공식 APT repository
 ```
 
-권장 생산성 도구인 `vim`, `tree`, `ripgrep`, `fd-find`는 설치할 수 있지만 B1-1 CLEAR Gate가 아닙니다.
+권장 생산성 도구인 `vim`, `tree`, `ripgrep`, `fd-find`는 설치할 수 있지만 B4-1 CLEAR Gate가 아닙니다.
 
 운영 순서:
 
 ```text
 Ubuntu Developer Bootstrap 확인
-→ B1-1 ubuntu-packages.txt 확인
+→ B4-1 ubuntu-packages.txt 확인
 → 누락 패키지만 설치
 → 실제 command/service 확인
-→ B1-1 Runtime
+→ B4-1 Runtime
 ```
 
 공통 Bootstrap 예:
@@ -80,13 +79,13 @@ bash "$CONTROL_TOWER/environments/ubuntu/bootstrap.sh" --check
 
 ## VS Code Remote Workspace
 
-macOS에서 VS Code를 실행하더라도 실제 B1-1 Repository와 Terminal은 Ubuntu 내부를 사용합니다.
+macOS에서 VS Code를 실행하더라도 실제 B4-1 Repository와 Terminal은 Ubuntu 내부를 사용합니다.
 
 ```text
 macOS VS Code
 → Remote-SSH `orb`
 → OrbStack Ubuntu 24.04
-→ $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+→ $HOME/codyssey/codyssey-basic-system-monitor
 → Ubuntu Bash
 ```
 
@@ -103,8 +102,8 @@ Repository Root의 `.vscode/settings.json`은 새 Terminal을 `${workspaceFolder
 
 ## R01 Golden Path
 
-- 현재 실제 Guest: **OrbStack Ubuntu 24.04**
-- 일반 Reference: Ubuntu 22.04 LTS 또는 동등 Linux
+- 권장 Linux Runtime: **Ubuntu 24.04**
+- 공식 Source가 허용하는 일반 Reference: Ubuntu 22.04 LTS 또는 동등 Linux
 - `systemd` 실제 동작 확인
 - Bash
 - OpenSSH Server
@@ -112,15 +111,13 @@ Repository Root의 `.vscode/settings.json`은 새 Terminal을 `${workspaceFolder
 - `ss`, `ps`, `pgrep`, `df`, `stat`, `getfacl`, `runuser`, `cron`
 - 기준 `AGENT_HOME=/opt/agent-app`
 
-기존 WSL2 Ubuntu도 필요한 기능이 정상 동작하면 사용할 수 있는 Reference 대상이지만, **현재 B1-1 Runtime은 WSL2가 아니라 OrbStack Ubuntu 24.04**입니다.
-
 공식 Mission의 `$AGENT_HOME` 경로는 예시가 허용되는 변수입니다. R01에서는 공유 디렉터리를 한 사용자의 홈 아래에 두어 상위 디렉터리 권한에 막히는 문제를 피하고, `agent-common`/`agent-core` 최소 권한을 명확히 검증하기 위해 `/opt/agent-app`을 Golden Path로 사용합니다.
 
-실제 검증된 macOS/OrbStack/Ubuntu/architecture 버전은 Runtime 단계에서 `versions.md`에 기록합니다. 현재 문서에서는 추측값을 고정하지 않습니다.
+실제 검증된 Host/Ubuntu/architecture 버전은 Runtime 단계에서 `versions.md`에 기록합니다. 현재 문서에서는 추측값을 고정하지 않습니다.
 
 ## OrbStack 환경 핵심 규칙
 
-- B1-1 Linux 명령은 macOS에서 직접 실행하지 않고 Ubuntu Guest에서 실행합니다.
+- B4-1 Linux 명령은 macOS에서 직접 실행하지 않고 Ubuntu Guest에서 실행합니다.
 - `uname -m`은 **Ubuntu 내부 실제 결과**를 Agent binary 선택 기준으로 사용합니다.
 - WSL 판별 결과가 `WSL marker not detected`여도 OrbStack에서는 이상이 아닐 수 있습니다.
 - OrbStack 자체 machine 접속과 Mission의 Ubuntu OpenSSH Server `20022/tcp`를 구분합니다.
@@ -149,9 +146,9 @@ Repository Root의 `.vscode/settings.json`은 새 Terminal을 `${workspaceFolder
 
 ## 파일
 
-- `ORBSTACK-UBUNTU-24.04.md` — 현재 macOS + OrbStack Ubuntu 24.04 Runtime 기준
+- `ORBSTACK-UBUNTU-24.04.md` — macOS + OrbStack Ubuntu 24.04 Runtime 기준
 - `VS-CODE-REMOTE-UBUNTU.md` — VS Code Remote-SSH, Ubuntu Workspace, Bash Terminal 기준
-- `ubuntu-packages.txt` — Common Base를 제외한 B1-1 전용 Ubuntu APT 추가 패키지
+- `ubuntu-packages.txt` — Common Base를 제외한 B4-1 전용 Ubuntu APT 추가 패키지
 - `prerequisites.md` — 시작 조건과 필요한 도구
 - `versions.md` — 기준과 실제 검증 버전
 - `setup.sh` — 계정/그룹/디렉터리/monitor 설치 재현 보조
@@ -160,12 +157,12 @@ Repository Root의 `.vscode/settings.json`은 새 Terminal을 `${workspaceFolder
 
 ## SSH/Firewall은 자동 setup 대상에서 제외
 
-SSH와 Firewall은 잘못 자동화하면 원격 접속을 잃을 수 있습니다. Round 01에서는 OrbStack Ubuntu 24.04 내부에서 다음 안전 순서를 사용합니다.
+SSH와 Firewall은 잘못 자동화하면 원격 접속을 잃을 수 있습니다. Round 01에서는 다음 안전 순서를 사용합니다.
 
 ```text
 현재 상태 확인
 → SSH/UFW 설정 백업
-→ UFW가 이미 active면 20022를 먼저 추가 허용(기존 22 유지)
+→ UFW가 이미 active면 20022를 먼저 추가 허용(기존 경로 유지)
 → sshd 설정 작성
 → sshd -t 문법 검사
 → sshd -T effective config 확인
