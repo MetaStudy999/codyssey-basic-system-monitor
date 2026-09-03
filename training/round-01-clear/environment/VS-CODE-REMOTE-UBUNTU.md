@@ -1,17 +1,17 @@
-# B1-1 VS Code Remote Ubuntu Guide
+# B4-1 VS Code Remote Ubuntu Guide
 
 ## 목적
 
-B1-1을 macOS + OrbStack Ubuntu 24.04에서 수행할 때 VS Code Terminal이 macOS 공유경로로 열려 다시 `cd ~`와 Repository 이동을 반복하는 문제를 방지합니다.
+B4-1 시스템 관제를 macOS + OrbStack Ubuntu 24.04에서 수행할 때 VS Code Terminal이 macOS 공유경로로 열려 다시 `cd ~`와 Repository 이동을 반복하는 문제를 방지합니다.
 
-B1-1의 Primary Runtime은 다음 구조를 사용합니다.
+B4-1의 MAC-V Runtime은 다음 구조를 사용합니다.
 
 ```text
 macOS
 └─ VS Code
    └─ Remote-SSH `orb`
       └─ OrbStack Ubuntu 24.04
-         └─ $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+         └─ $HOME/codyssey/codyssey-basic-system-monitor
 ```
 
 핵심은 **VS Code UI만 macOS에 두고 Repository·Terminal·Git·Runtime은 Ubuntu 안에 두는 것**입니다.
@@ -20,7 +20,7 @@ macOS
 
 ## 1. Repository 위치
 
-B1-1 Primary Repository는 Ubuntu home 아래를 사용합니다.
+B4-1 Canonical Repository는 Ubuntu home 아래를 사용합니다.
 
 ```bash
 mkdir -p "$HOME/codyssey"
@@ -30,10 +30,10 @@ cd "$HOME/codyssey"
 권장 경로:
 
 ```text
-$HOME/codyssey/codyssey-basic-b1-1-system-monitor
+$HOME/codyssey/codyssey-basic-system-monitor
 ```
 
-다음 경로는 OrbStack이 공유해 주는 macOS filesystem이므로 Primary B1-1 Workspace로 사용하지 않습니다.
+다음 경로는 OrbStack이 공유해 주는 macOS filesystem이므로 Primary B4-1 Workspace로 사용하지 않습니다.
 
 ```text
 /Users/<mac-user>/...
@@ -59,7 +59,7 @@ Command Palette
 ```text
 File
 → Open Folder
-→ /home/<linux-user>/codyssey/codyssey-basic-b1-1-system-monitor
+→ /home/<linux-user>/codyssey/codyssey-basic-system-monitor
 ```
 
 또는 Linux 안에서 `$HOME`을 기준으로 같은 Repository를 선택합니다.
@@ -68,7 +68,7 @@ OrbStack built-in SSH `orb`는 VS Code Remote 개발/관리 채널입니다.
 
 ---
 
-## 3. B1-1 Repository VS Code 설정
+## 3. B4-1 Repository VS Code 설정
 
 Root의 `.vscode/settings.json`은 다음 정책을 적용합니다.
 
@@ -83,7 +83,7 @@ Root의 `.vscode/settings.json`은 다음 정책을 적용합니다.
 }
 ```
 
-B1-1 자체는 Python virtual environment가 필수인 Mission이 아니므로 `.venv`를 억지로 만들지 않습니다. Python Mission에서 같은 공통 설정을 재사용할 수 있도록 search path만 안전하게 둡니다.
+B4-1 자체는 Python virtual environment가 필수인 Mission이 아니므로 `.venv`를 억지로 만들지 않습니다. Python Mission에서 같은 공통 설정을 재사용할 수 있도록 search path만 안전하게 둡니다.
 
 ---
 
@@ -92,7 +92,7 @@ B1-1 자체는 Python virtual environment가 필수인 Mission이 아니므로 `
 VS Code에서 새 Terminal을 열었을 때 다음과 같은 형태가 목표입니다.
 
 ```text
-user@ubuntu:~/codyssey/codyssey-basic-b1-1-system-monitor$
+user@ubuntu:~/codyssey/codyssey-basic-system-monitor$
 ```
 
 다음처럼 macOS 경로가 보이면 Workspace를 잘못 연 것입니다.
@@ -144,25 +144,25 @@ case "$PWD" in
 esac
 ```
 
-B1-1에서는 `VIRTUAL_ENV=<none>`이어도 정상입니다.
+B4-1에서는 `VIRTUAL_ENV=<none>`이어도 정상입니다.
 
 ---
 
-## 6. OrbStack SSH와 B1-1 SSH 구분
+## 6. OrbStack SSH와 B4-1 SSH 구분
 
-B1-1에서는 두 SSH 개념을 반드시 분리합니다.
+B4-1에서는 두 SSH 개념을 반드시 분리합니다.
 
 ```text
 OrbStack built-in SSH `orb`
 = macOS VS Code → Ubuntu 개발/관리 접속
 
 Ubuntu OpenSSH `sshd:20022`
-= B1-1 Mission에서 직접 구성/검증하는 대상
+= B4-1 Mission에서 직접 구성/검증하는 대상
 ```
 
-따라서 VS Code가 `orb`로 접속해 있다고 해서 B1-1의 `sshd:20022`가 PASS한 것은 아닙니다.
+따라서 VS Code가 `orb`로 접속해 있다고 해서 B4-1의 `sshd:20022`가 PASS한 것은 아닙니다.
 
-반대로 B1-1 `sshd` 설정을 수정하더라도 OrbStack built-in SSH와 Mission SSH를 동일한 설정으로 간주하지 않습니다.
+반대로 B4-1 `sshd` 설정을 수정하더라도 OrbStack built-in SSH와 Mission SSH를 동일한 설정으로 간주하지 않습니다.
 
 ---
 
@@ -203,9 +203,9 @@ Remote User Settings에는 다음 설정을 권장합니다.
 [ ] Open Folder가 Ubuntu `$HOME/codyssey/...` Repository임
 [ ] 새 Terminal이 Repository root에서 시작함
 [ ] Shell이 Bash임
-[ ] Git root가 현재 B1-1 Repository임
+[ ] Git root가 현재 B4-1 Repository임
 [ ] `/Users/...` 또는 `/mnt/mac/...` Primary Workspace가 아님
-[ ] OrbStack SSH와 B1-1 `sshd:20022`를 구분함
+[ ] OrbStack SSH와 B4-1 `sshd:20022`를 구분함
 ```
 
-이 확인은 개발환경 위치를 고정하기 위한 Preflight이며 B1-1 Mission PASS/CLEAR 자체를 의미하지 않습니다.
+이 확인은 개발환경 위치를 고정하기 위한 Preflight이며 B4-1 Mission PASS/CLEAR 자체를 의미하지 않습니다.
