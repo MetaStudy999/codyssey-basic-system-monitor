@@ -105,7 +105,7 @@ STEP 15 CLEAR 판단 후보
 Host       : OrbStack Ubuntu 24.04 또는 WSL2 Ubuntu 24.04
 Terminal A : STEP 07부터 유지 중인 Agent foreground Terminal
 Terminal B : Ubuntu Bash — 통합 검증 실행
-Repository : $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+Repository : $HOME/codyssey/codyssey-basic-system-monitor
 권한       : 일반 사용자 + verify.sh 실행에서 sudo
 venv       : 해당 없음
 전제       : STEP 11 실제 Runtime 분기 검증까지 PASS
@@ -114,7 +114,7 @@ venv       : 해당 없음
 ### A. Repository와 `verify.sh` 실행 전 점검(Preflight)
 
 ```bash
-cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"
+cd "$HOME/codyssey/codyssey-basic-system-monitor"
 pwd
 git branch --show-current
 git status --short
@@ -250,7 +250,7 @@ Documentation = 준비됨
 
 ### Repository / verifier Preflight
 
-- `cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"`
+- `cd "$HOME/codyssey/codyssey-basic-system-monitor"`
   - B1-1 Repository root로 이동하여 다른 clone이나 Host 공유 경로의 verifier를 실행하는 실수를 줄입니다.
 - `pwd`
   - 실제 현재 작업 디렉터리를 확인합니다.

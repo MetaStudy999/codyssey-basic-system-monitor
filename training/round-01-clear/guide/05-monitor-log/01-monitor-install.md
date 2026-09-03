@@ -106,7 +106,7 @@ TCP Port LISTEN
 Host       : OrbStack Ubuntu 24.04 또는 WSL2 Ubuntu 24.04
 Terminal A : STEP 07의 Agent foreground Terminal — 그대로 유지
 Terminal B : Ubuntu Bash — monitor 설치·실행·검증
-Repository : $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+Repository : $HOME/codyssey/codyssey-basic-system-monitor
 권한       : 일반 사용자 + 설치/역할 전환에 필요한 줄에서만 sudo
 venv       : 해당 없음
 ```
@@ -116,7 +116,7 @@ venv       : 해당 없음
 **Terminal A의 Agent를 종료하지 않은 상태에서 Terminal B**에서 수행합니다.
 
 ```bash
-cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"
+cd "$HOME/codyssey/codyssey-basic-system-monitor"
 pwd
 git branch --show-current
 git status --short
@@ -553,7 +553,7 @@ printf ... >> "$MONITOR_LOG"
 
 ### STEP 07 Gate와 Repository 확인
 
-- `cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"`
+- `cd "$HOME/codyssey/codyssey-basic-system-monitor"`
   - 실제 B1-1 Repository root로 이동합니다. Reference 파일을 다른 clone이나 Host 경로에서 잘못 설치하는 일을 줄입니다.
 - `AGENT_COUNT="$(pgrep -x agent-app | wc -l)"`
   - `pgrep -x`가 찾은 정확한 이름의 PID 수를 `wc -l`로 세어 변수에 저장합니다.

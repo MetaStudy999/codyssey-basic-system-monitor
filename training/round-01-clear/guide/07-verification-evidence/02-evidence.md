@@ -99,7 +99,7 @@ cron 시간 흐름
 Host       : OrbStack Ubuntu 24.04 또는 WSL2 Ubuntu 24.04
 Terminal A : 필요 시 STEP 07부터 유지 중인 Agent foreground Terminal
 Terminal B : Ubuntu Bash — Evidence 수집·검토
-Repository : $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+Repository : $HOME/codyssey/codyssey-basic-system-monitor
 권한       : 일반 사용자 + 시스템 읽기에서 필요한 줄만 sudo
 venv       : 해당 없음
 전제       : STEP 12 실제 Verification Gate 통과
@@ -108,7 +108,7 @@ venv       : 해당 없음
 ### A. Evidence 수집 전 Repository 출처 정보 확인
 
 ```bash
-cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"
+cd "$HOME/codyssey/codyssey-basic-system-monitor"
 pwd
 git branch --show-current
 git status --short

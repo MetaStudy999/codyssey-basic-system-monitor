@@ -111,7 +111,7 @@ threshold를 이번 실행에서만 -1로 낮춤 O
 Host       : OrbStack Ubuntu 24.04 또는 WSL2 Ubuntu 24.04
 Terminal A : STEP 07부터 유지 중인 Agent foreground Terminal
 Terminal B : Ubuntu Bash — STEP 11 분기 격리 검증
-Repository : $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+Repository : $HOME/codyssey/codyssey-basic-system-monitor
 권한       : 일반 사용자 + 실제 agent-admin 실행/소켓 상세 확인에 필요한 sudo
 venv       : 해당 없음
 전제       : STEP 10 실제 cron 자동 실행 PASS 완료
@@ -120,7 +120,7 @@ venv       : 해당 없음
 ### A. STEP 10 이후 실제 Runtime Gate 재확인 — 읽기 전용
 
 ```bash
-cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"
+cd "$HOME/codyssey/codyssey-basic-system-monitor"
 pwd
 git branch --show-current
 git status --short

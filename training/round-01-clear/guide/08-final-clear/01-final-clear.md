@@ -97,7 +97,7 @@ Primary Host    : macOS
 Linux Runtime   : OrbStack Ubuntu 24.04
 Secondary       : Windows 11 Pro + WSL2 Ubuntu 24.04
 Terminal        : Ubuntu Bash
-Repository      : $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+Repository      : $HOME/codyssey/codyssey-basic-system-monitor
 권한            : 일반 사용자 + 검증에 필요한 sudo
 venv            : 해당 없음
 전제            : STEP 03~14의 실제 수행이 끝난 상태
@@ -108,7 +108,7 @@ venv            : 해당 없음
 ### A. Repository와 현재 기준선 확인
 
 ```bash
-cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"
+cd "$HOME/codyssey/codyssey-basic-system-monitor"
 pwd
 git branch --show-current
 git status --short

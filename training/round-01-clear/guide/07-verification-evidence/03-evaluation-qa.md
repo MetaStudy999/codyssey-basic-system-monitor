@@ -111,7 +111,7 @@ flowchart TD
 ```text
 Host       : OrbStack Ubuntu 24.04 또는 WSL2 Ubuntu 24.04
 Terminal   : Ubuntu Bash
-Repository : $HOME/codyssey/codyssey-basic-b1-1-system-monitor
+Repository : $HOME/codyssey/codyssey-basic-system-monitor
 권한       : 일반 사용자
 venv       : 해당 없음
 전제       : STEP 13의 실제 Evidence가 준비되어 있으면 가장 좋음
@@ -122,7 +122,7 @@ STEP 14 자체는 시스템 설정을 변경하지 않습니다. 평가 문서·
 ### A. Repository와 학습 자료 확인
 
 ```bash
-cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"
+cd "$HOME/codyssey/codyssey-basic-system-monitor"
 pwd
 git branch --show-current
 git status --short
@@ -438,7 +438,7 @@ evaluation-qa.md 기준 설명과 비교
 
 ### Repository 확인 명령
 
-- `cd "$HOME/codyssey/codyssey-basic-b1-1-system-monitor"`
+- `cd "$HOME/codyssey/codyssey-basic-system-monitor"`
   - 현재 B1-1 Repository root로 이동합니다.
 - `pwd`
   - 실제 작업 위치가 예상 Repository인지 확인합니다.
