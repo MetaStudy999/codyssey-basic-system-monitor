@@ -16,7 +16,10 @@ Ubuntu 24.04에서는 OpenSSH가 `ssh.socket` 기반 socket activation으로 동
 - [안전 가드 — `ssh.socket` / `ssh.service` / listener 판정](00-ubuntu24-socket-activation.md)
 
 ### 1. SSH 서버 설정과 실제 새 연결 검증
+- [MAC-V Ubuntu 24.04 — 안전한 TCP 20022 전환 브리지](01a-mac-v-safe-20022-bridge.md)
 - [STEP 03 — SSH 20022 / Root 원격 로그인 차단](01-ssh.md)
+
+> MAC-V에서 Ubuntu 24.04 `ssh.socket` activation이 확인된 경우에는 `01-ssh.md`의 service-only reload 예시를 그대로 실행하지 말고, 먼저 위의 **안전한 TCP 20022 전환 브리지** 절차를 사용합니다.
 
 ### 2. 방화벽 정책과 허용 포트 정리
 - [STEP 04 — UFW 방화벽 정책 구성](02-firewall.md)
@@ -24,6 +27,8 @@ Ubuntu 24.04에서는 OpenSSH가 `ssh.socket` 기반 socket activation으로 동
 ## 완료 조건
 
 - [ ] Ubuntu 24.04 `ssh.socket` 사용 여부 확인
+- [ ] TCP 22 known-good 인증 경로 확보
+- [ ] MAC-V socket activation 환경이면 TCP 20022 브리지 검증
 - [ ] STEP 03 완료
 - [ ] STEP 04 완료
 - [ ] SSH 설정과 실제 리슨(Listen)·새 세션 검증의 차이를 이해했다.
