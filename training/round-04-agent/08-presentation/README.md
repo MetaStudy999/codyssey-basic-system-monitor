@@ -11,3 +11,7 @@ Round 04 Agent 전용 폴더. 현재 PLAN_ONLY / NOT_STARTED; 기존 결과 보�
 - [공통 자료](05-assets/README.md)
 
 [00단계 계획](../00-plan/SLIDE-PACKAGE-PLAN.md). 실제 슬라이드 미작성.
+
+## 학습 활동 확장 계획
+
+[용어·개념도·코드 추적·실습·오류 해결·문제은행·복습](06-learning-activities/README.md). 승인된 4종 슬라이드는 유지, 추가 워크북은 아직 미제작.

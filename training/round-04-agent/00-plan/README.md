@@ -9,3 +9,7 @@ Round 04 Agent 전용 폴더. 현재 PLAN_ONLY / NOT_STARTED; 기존 결과 보�
 ## 4종 학습·발표 승인 (2026-10-26)
 
 [계획](SLIDE-PACKAGE-PLAN.md): 발표 16장 · 학습 45장 · 심화 15~25장 · 복습 1~2장. **PLAN_ONLY**.
+
+## 학습자 중심 AI 학습체계 승인 (2026-10-26)
+
+[통합 계획](LEARNING-SYSTEM-PLAN.md) · 16 학습기법 · PRIMM · AI 힌트 H1~H4 · L1~L5 · QG-01~08 · 회상 복습. 계획 외 실제 미션 개발은 미시작.
